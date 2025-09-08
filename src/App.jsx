@@ -1,25 +1,26 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
+import { toast, Toaster } from 'react-hot-toast'
 
 function App() {
   const [emailContent, setEmailContent] = useState("")
   const [tone, setTone] = useState("")
    const[loading,setLoading] = useState(false)
+   const[generatedReply,setGeneratedReply] = useState("")
    
 
    const handleClick = async() => {
     setLoading(true)
    try{
-    const response = axios.post("http://localhost:8080/api/email/generate",{
+    const response =  await axios.post("http://localhost:8080/api/email/generate",{
     emailContent,
     tone
     
    })
+   setGeneratedReply(response.data)
    console.log(response.data);
-   toast.success("Email Generated Successfully")
+    toast.success("Email Generated Successfully")
 
    }catch(err){
     console.log(err);
@@ -62,15 +63,24 @@ function App() {
         </select>
 
         <button onClick={handleClick} className='backdrop-blur-2xl mt-5 h-[40px] px-1 bg-white/40 rounded-sm font-bold cursor-pointer'>
-          Generate Reply
+          
+          {loading ? "Generating..." : "Generate Reply"}
+          
         </button>
           </div>
         </div>
-        
+      <div className='relative h-[50vh] w-[80vw] sm:w-[50vw] m-auto mt-20 p-5 backdrop-opacity-20 bg-red-200 rounded-lg z-20 overflow-y-auto'>
+  {generatedReply ? (
+    <p className="text-black text-lg whitespace-pre-wrap">{generatedReply}</p>
+  ) : (
+    <p className="text-gray-500">Your generated email reply will appear here...</p>
+  )}
+</div>
        
         
 
       </div>
+       <Toaster position="top-right" reverseOrder={false} />
     </>
   )
 }
