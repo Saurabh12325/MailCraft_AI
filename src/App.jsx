@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
+import { motion } from 'framer-motion'
 
 function App() {
   const [emailContent, setEmailContent] = useState("")
@@ -47,11 +48,27 @@ const handleCopy = (ref) => {
   return (
     <>
       <div className=' h-screen relative bg-gradient-to-b from-black to-red-900  overflow-hidden overflow-y-scroll '>
-        <h1 className='flex justify-center items-center mt-6 z-10 font-semibold text-3xl text-white   '> Welcome To MailCraft AI</h1>
+        <h1  className='flex justify-center items-center mt-6 z-10 font-semibold text-3xl md:text-5xl text-white   '> 
+          <motion.h1
+          whileInView={{ scale: [0, 2, 1], opacity: [0, 0, 1] }}
+                        transition={{ duration: 1.25, ease: 'easeInOut' }} 
+                      
+       >
+          
+         Welcome To MailCraft AI </motion.h1></h1>
 
         <div className=' relative h-[90vh]  w-[80vw] sm:w-[50vw] m-auto mt-10  backdrop-opacity-20 rounded-lg z-20 '>
-          <h2 className='flex justify-center items-center mt-6 z-10 font-semibold text-2xl text-white   '> AI-powered instant email replies.</h2>
+          <h2 className='flex justify-center text-center mt-6 z-10 font-semibold text-2xl text-white' > 
+          <motion.h2
+          whileInView={{ scale: [0, 1.25], opacity: [0, 0, 1] }}
+                        transition={{ duration: 2.5, ease: 'easeInOut' }}
+                      
+       >
+          
+         Crafting Perfect Replies, Instantly! </motion.h2></h2>
+         
           <div className='backdrop-blur-2xl bg-white/20 opacity-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[70%] bg- rounded-lg shadow-lg flex flex-col justify-center items-center  '>
+           
             <label className="text-2xl font-bold  text-white  ">
               Enter Email Content
             </label>
