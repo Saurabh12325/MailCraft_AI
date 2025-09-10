@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
@@ -8,7 +8,22 @@ function App() {
   const [tone, setTone] = useState("")
    const[loading,setLoading] = useState(false)
    const[generatedReply,setGeneratedReply] = useState("")
-   
+
+   const paragraphRef = useRef(null);
+const handleCopy = (ref) => {
+    if (ref.current) {
+      const text = ref.current.textContent;
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          toast.success("Copied to clipboard!");
+        })
+        .catch(() => {
+          toast.error("Failed to copy!");
+        });
+    }
+  };
+
 
    const handleClick = async() => {
     setLoading(true)
@@ -37,12 +52,12 @@ function App() {
         <div className=' relative h-[90vh]  w-[80vw] sm:w-[50vw] m-auto mt-10  backdrop-opacity-20 rounded-lg z-20 '>
           <h2 className='flex justify-center items-center mt-6 z-10 font-semibold text-2xl text-white   '> AI-powered instant email replies.</h2>
           <div className='backdrop-blur-2xl bg-white/20 opacity-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[70%] bg- rounded-lg shadow-lg flex flex-col justify-center items-center  '>
-            <label className="text-2xl font-bold text-white">
+            <label className="text-2xl font-bold text-white ">
               Enter Email Content
             </label>
 
             <textarea
-              className="w-[90%] h-[150px] overflow-y-scroll mt-5 p-3 rounded-lg outline-none text-black text-lg font-medium bg-white/20 backdrop-blur-xl border-2 focus:border-blue-800 resize-none"
+              className="w-[90%] h-[150px] overflow-y-scroll mt-5 p-3 rounded-lg outline-none text-black text-lg font-medium bg-white border-2 focus:border-blue-800 resize-none"
               value={emailContent}
               onChange={(e) => setEmailContent(e.target.value)}
               placeholder="Write your email content here..."
@@ -69,12 +84,19 @@ function App() {
         </button>
           </div>
         </div>
-      <div className='relative h-[50vh] w-[80vw] sm:w-[50vw] m-auto mt-20 p-5 backdrop-opacity-20 bg-red-200 rounded-lg z-20 overflow-y-auto'>
+      <div className='relative  w-[80vw] sm:w-[50vw] h-[50vh] sm:h-[50vh]  m-auto mt-20 mb-5 p-5 backdrop-opacity-20 backdrop-blur-2xl text-white bg-red-200/15 rounded-lg z-20 overflow-y-scroll '>
   {generatedReply ? (
-    <p className="text-black text-lg whitespace-pre-wrap">{generatedReply}</p>
+    <p ref={paragraphRef} className=" text-lg whitespace-pre-wrap">{generatedReply}</p>
   ) : (
-    <p className="text-gray-500">Your generated email reply will appear here...</p>
+    <p className="text-white-500 font-black mt-2.5 text-2xl text-center ">Your generated email reply will appear here...</p>
   )}
+  <h3
+                onClick={() => handleCopy(paragraphRef)}
+                className="flex mb-2 gap-2 backdrop-blur-xl y-3 px-4 absolute top-2 right-2  cursor-pointer rounded-lg bg-black"
+              >
+                Copy
+               {/* f */}
+              </h3>
 </div>
        
         
