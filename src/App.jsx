@@ -52,12 +52,12 @@ const handleCopy = (ref) => {
         <div className=' relative h-[90vh]  w-[80vw] sm:w-[50vw] m-auto mt-10  backdrop-opacity-20 rounded-lg z-20 '>
           <h2 className='flex justify-center items-center mt-6 z-10 font-semibold text-2xl text-white   '> AI-powered instant email replies.</h2>
           <div className='backdrop-blur-2xl bg-white/20 opacity-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[70%] bg- rounded-lg shadow-lg flex flex-col justify-center items-center  '>
-            <label className="text-2xl font-bold text-white ">
+            <label className="text-2xl font-bold  text-white  ">
               Enter Email Content
             </label>
 
             <textarea
-              className="w-[90%] h-[150px] overflow-y-scroll mt-5 p-3 rounded-lg outline-none text-black text-lg font-medium bg-white border-2 focus:border-blue-800 resize-none"
+              className="w-[90%] h-[250px] overflow-y-scroll mt-5 p-3 rounded-lg outline-none text-black text-lg font-medium bg-white border-2 focus:border-blue-800 resize-none"
               value={emailContent}
               onChange={(e) => setEmailContent(e.target.value)}
               placeholder="Write your email content here..."
