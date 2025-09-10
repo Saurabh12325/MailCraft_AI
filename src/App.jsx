@@ -28,7 +28,7 @@ const handleCopy = (ref) => {
    const handleClick = async() => {
     setLoading(true)
    try{
-    const response =  await axios.post("http://localhost:8080/api/email/generate",{
+    const response =  await axios.post("https://mailcraftai.onrender.com/api/email/generate",{
     emailContent,
     tone
     
@@ -84,21 +84,27 @@ const handleCopy = (ref) => {
         </button>
           </div>
         </div>
-      <div className='relative  w-[80vw] sm:w-[50vw] h-[50vh] sm:h-[50vh]  m-auto mt-20 mb-5 p-5 backdrop-opacity-20 backdrop-blur-2xl text-white bg-red-200/15 rounded-lg z-20 overflow-y-scroll '>
-  {generatedReply ? (
-    <p ref={paragraphRef} className=" text-lg whitespace-pre-wrap">{generatedReply}</p>
-  ) : (
-    <p className="text-white-500 font-black mt-2.5 text-2xl text-center ">Your generated email reply will appear here...</p>
-  )}
-  <h3
-                onClick={() => handleCopy(paragraphRef)}
-                className="flex mb-2 gap-2 backdrop-blur-xl y-3 px-4 absolute top-2 right-2  cursor-pointer rounded-lg bg-black"
-              >
-                Copy
-               {/* f */}
-              </h3>
-</div>
-       
+      {generatedReply && (
+  <div className="relative w-[80vw] sm:w-[50vw] h-[50vh] sm:h-[50vh] m-auto mt-20 mb-5 p-5 backdrop-opacity-20 backdrop-blur-2xl text-white bg-red-200/15 rounded-lg z-20 overflow-y-scroll">
+    <p ref={paragraphRef} className="text-lg whitespace-pre-wrap">
+      {generatedReply}
+    </p>
+
+    <h3
+      onClick={() => handleCopy(paragraphRef)}
+      className="flex mb-2 gap-2 backdrop-blur-xl y-3 px-4 absolute top-2 right-2 cursor-pointer rounded-lg bg-black text-white"
+    >
+      Copy
+    </h3>
+  </div>
+)}
+
+{!generatedReply && (
+  <p className="text-white font-black mt-2.5 text-2xl text-center">
+    Your generated email reply will appear here...
+  </p>
+)}
+
         
 
       </div>
